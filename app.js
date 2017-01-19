@@ -3,16 +3,23 @@
 let express = require('express');
 let app = express();
 let routes = require("./routes");
-
-let jsonParser = require("body-parser").json;
-let logger = require("morgan");
-
-app.use(logger("dev"));
-app.use(jsonParser());
-
 let mongoose = require("mongoose");
+let config = require('config');
+let bodyParser = require("body-parser").json;
+let morgan = require("morgan");
+let options = {
+               server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+               replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } }
+             };
 
-mongoose.connect("mongodb://localhost:27017/brewjournal");
+
+app.use(bodyParser.json());                                     
+app.use(bodyParser.urlencoded({extended: true}));               
+app.use(bodyParser.text());                                    
+app.use(bodyParser.json({ type: 'application/json'}));  
+
+
+mongoose.connect(config.DBHost, options);
 
 let db = mongoose.connection;
 
@@ -20,11 +27,17 @@ db.on("error", function(err) {
     console.error("connection error:", err);
 });
 
+//don't show the log when it is test
+if(config.util.getEnv('NODE_ENV') !== 'test') {
+    //use morgan to log at command line
+    app.use(morgan('combined')); //'combined' outputs the Apache style LOGs
+}
+
 db.once("open", function(){
     console.log("db connection successful");
 });
 
-app.use(function(req, res, next){
+app.use (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     if(req.method === "OPTIONS") {
