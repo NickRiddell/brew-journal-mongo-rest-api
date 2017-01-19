@@ -19,6 +19,7 @@
   "homepage": "https://github.com/NickRiddell/brew-journal-mongo-rest-api#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "config": "^1.24.0",
     "express": "^4.13.4",
     "mongoose": "^4.4.20",
     "morgan": "^1.7.0"

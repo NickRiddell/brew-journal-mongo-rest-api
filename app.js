@@ -5,7 +5,7 @@ let app = express();
 let routes = require("./routes");
 let mongoose = require("mongoose");
 let config = require('config');
-let bodyParser = require("body-parser").json;
+let bodyParser = require("body-parser");
 let morgan = require("morgan");
 let options = {
                server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
@@ -37,7 +37,7 @@ db.once("open", function(){
     console.log("db connection successful");
 });
 
-app.use (req, res, next) => {
+app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     if(req.method === "OPTIONS") {
@@ -48,6 +48,7 @@ app.use (req, res, next) => {
 });
 
 app.use("/brews", routes);
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
