@@ -61,7 +61,7 @@ router.get("/:bID", function(req, res, next){
 router.put("/:bID", function(req, res){
     req.brew.update(req.body, function(err, result){
         if(err) return next(err);
-        res.json(result);
+        res.json({"status":"updated"});
     });
 });
 
@@ -89,7 +89,7 @@ router.post("/:bID/notes", function(req, res, next){
 router.put("/:bID/notes/:nID", function(req, res){
     req.note.update(req.body, function(err, result){
         if(err) return next(err);
-        res.json(result);
+        res.json({"status":"updated"});
     });
 });
 
