@@ -1,6 +1,6 @@
 'use strict';
 
-import mongoose from 'mongoose';
+let mongoose = require("mongoose");
 
 let Schema = mongoose.Schema;
 
@@ -27,7 +27,7 @@ const BrewSchema = new Schema({
 });
 
 BrewSchema.pre("save", function(next){
-    this.notes.sort();
+    this.notes.sort({createdAt: -1});
     next();
 });
 
