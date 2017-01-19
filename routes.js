@@ -30,7 +30,7 @@ router.param("nID", function(req, res, next, id){
 
 //GET /brews
 // Route for brews collection
-router.get("/", function(req, res, next){
+router.get ("/", (req, res, next) => {
     Brew.find({})
                 .sort({createdAt: -1})
                 .exec(function(err, brews){
@@ -41,7 +41,7 @@ router.get("/", function(req, res, next){
 
 //POST /brews
 // Route for creating brews
-router.post("/", function(req, res, next){
+router.post("/", (req, res, next) => {
     let brew = new Brew(req.body);
     brew.save(function(err, brew){
         if(err) return next(err);
@@ -52,14 +52,14 @@ router.post("/", function(req, res, next){
 
 //GET /brew/:id
 // Route for specific brew
-router.get("/:bID", function(req, res, next){
+router.get("/:bID", (req, res, next) => {
     res.json(req.brew);
 });
 
 //PUT /brews/:bID
 // Edit a specific answer
-router.put("/:bID", function(req, res){
-    req.brew.update(req.body, function(err, result){
+router.put("/:bID", (req, res) => {
+    req.brew.update(req.body, (err, result) => {
         if(err) return next(err);
         res.json({"status":"updated"});
     });
@@ -67,17 +67,17 @@ router.put("/:bID", function(req, res){
 
 //DELETE /brews/:bID
 // Delete a specific brew
-router.delete("/:bID", function(req, res){
-    req.brew.remove(function(err){
+router.delete("/:bID", (req, res) => {
+    req.brew.remove((err) => {
         if(err) return next(err);
     });
 });
 
 //POST /brews/:bID/notes
 // Route for creating a note
-router.post("/:bID/notes", function(req, res, next){
+router.post("/:bID/notes", (req, res, next) => {
     req.brew.notes.push(req.body);
-    req.brew.save(function(err, brew){
+    req.brew.save((err, brew) => {
         if(err) return next(err);
         res.status(201);
         res.json(brew);
@@ -86,8 +86,8 @@ router.post("/:bID/notes", function(req, res, next){
 
 //PUT /brews/:bID/notes/:nID
 // Edit a specific note
-router.put("/:bID/notes/:nID", function(req, res){
-    req.note.update(req.body, function(err, result){
+router.put("/:bID/notes/:nID", (req, res) => {
+    req.note.update(req.body, (err, result) => {
         if(err) return next(err);
         res.json({"status":"updated"});
     });
@@ -95,9 +95,9 @@ router.put("/:bID/notes/:nID", function(req, res){
 
 //DELETE /brews/:bID/notes/:nID
 // Delete a specific note
-router.delete("/:bID/notes/:nID", function(req, res){
-    req.note.remove(function(err){
-        req.brew.save(function(err, brew){
+router.delete("/:bID/notes/:nID", (req, res) => {
+    req.note.remove((err) => {
+        req.brew.save((err, brew) => {
             if(err) return next(err);
             res.json(brew);
         });
