@@ -1,0 +1,25 @@
+{
+  "name": "brew-journal-mongo-rest-api",
+  "version": "1.0.0",
+  "description": "RESTful API to host brew data",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NickRiddell/brew-journal-mongo-rest-api.git"
+  },
+  "author": "Nick Riddell & Dan Gillespie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NickRiddell/brew-journal-mongo-rest-api/issues"
+  },
+  "homepage": "https://github.com/NickRiddell/brew-journal-mongo-rest-api#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.20",
+    "morgan": "^1.7.0"
+  }
+}
