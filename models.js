@@ -16,9 +16,9 @@ NoteSchema.method("update", (updates, callback) => {
 });
 
 const BrewSchema = new Schema({
-    title: String,
-    ingredients: String,
-    specificGravityInitial: Number,
+    title: { type: String, required: true },
+    ingredients: { type: String, required: true },
+    specificGravityInitial: { type: Number, required: true },
     specificGravityFinal: {type: Number, default: 0},
     estimatedABV: {type: Number, default: 0},
     state: {type: String, default: "Initial Fermentation"},
@@ -26,7 +26,7 @@ const BrewSchema = new Schema({
     notes: [NoteSchema]
 });
 
-BrewSchema.pre("save", next => {
+BrewSchema.pre("save", function(next){
     this.notes.sort({createdAt: -1});
     next();
 });

@@ -33,4 +33,44 @@ describe('Brews', () => {
       });
   });
 
+  /*
+  * Test the /POST route
+  */
+  describe('/POST brew', () => {
+      it('it should not POST a brew without specificGravityInitial field', (done) => {
+        let brew = {
+            title: "Coffee Wine",
+            ingredients: "Ground coffee(170g), water, sugar(900g), yeast(5g), nutrient(3tsp)"
+        }
+        chai.request(app)
+            .post('/brews')
+            .send(brew)
+            .end((err, res) => {
+                res.should.have.status(500);
+                res.body.should.be.a('object');
+                res.body.should.have.property('error');
+            done();
+            });
+      });
+
+		it('it should POST a brew with all required fields entered ', (done) => {
+		        let brew = {
+		            title: "Coffee Wine",
+		            ingredients: "Ground coffee(170g), water, sugar(900g), yeast(5g), nutrient(3tsp)",
+		            specificGravityInitial: 1.098
+		        }
+		        chai.request(app)
+		            .post('/brews')
+		            .send(brew)
+		            .end((err, res) => {
+		                res.should.have.status(201);
+		                res.body.should.be.a('object');
+		                res.body.should.have.property('title');
+		                res.body.should.have.property('ingredients');
+		                res.body.should.have.property('specificGravityInitial');
+		              done();
+		            });
+		      });
+		  });
+
 });
