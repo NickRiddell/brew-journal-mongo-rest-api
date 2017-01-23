@@ -2,7 +2,6 @@ process.env.NODE_ENV = 'test';
 
 let mongoose = require("mongoose");
 let Brew = require("../models").Brew;
-let router = require("../routes").router;
 
 //Require the dev-dependencies
 let chai = require('chai');
@@ -24,7 +23,7 @@ describe('Brews', () => {
   describe('/GET brew', () => {
       it('it should GET all the brews', (done) => {
         chai.request(app)
-            .get('/brew')
+            .get('/brews')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
