@@ -73,4 +73,28 @@ describe('Brews', () => {
 		      });
 		  });
 
+/*
+  * Test the /GET/:id route
+  */
+  describe('/GET/:id brew', () => {
+      it('it should GET a brew by the given id', (done) => {
+        let brew = new Brew({ title: "Beetroot Wine", ingredients: "Beetroot, water, sugar, yeast", specificGravityInitial: 1.261 });
+        brew.save((err, brew) => {
+            chai.request(app)
+            .get('/brews/' + brew.id)
+            .send(brew)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('title');
+                res.body.should.have.property('ingredients');
+                res.body.should.have.property('specificGravityInitial');
+                res.body.should.have.property('_id').eql(brew.id);
+              done();
+            });
+        });
+
+      });
+  });
 });
+
