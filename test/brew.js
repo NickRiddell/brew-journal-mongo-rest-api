@@ -96,5 +96,26 @@ describe('Brews', () => {
 
       });
   });
+
+/*
+  * Test the /PUT/:id route
+  */
+  describe('/PUT/:id brew', () => {
+      it('it should UPDATE a brew given the id', (done) => {
+        let brew = new Brew({title: "Beetroot Wine", ingredients: "Beetroot, water, sugar, yeast", specificGravityInitial: 1.261})
+        brew.save((err, brew) => {
+                chai.request(app)
+                .put('/brews/' + brew.id)
+                .send({title: "Beetroot Wine", ingredients: "Beetroot, water, sugar, yeast", specificGravityInitial: 1.262})
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('status').eql('updated');
+                  done();
+                });
+          });
+      });
+
+  });
 });
 
