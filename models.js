@@ -10,7 +10,7 @@ const NoteSchema = Schema({
     updatedAt: {type: Date, default: Date.now},
 });
 
-NoteSchema.method("update", function(updates, callback) {
+NoteSchema.method("update", (updates, callback) => {
     Object.assign(this, updates, {updatedAt: new Date()});
     this.parent().save(callback);
 });
@@ -26,7 +26,7 @@ const BrewSchema = new Schema({
     notes: [NoteSchema]
 });
 
-BrewSchema.pre("save", function(next){
+BrewSchema.pre("save", next => {
     this.notes.sort({createdAt: -1});
     next();
 });

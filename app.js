@@ -74,6 +74,7 @@ app.listen(port, function(){
     console.log("Express server is listening on port", port);
 });
 
+module.exports = app;
 
 
 
