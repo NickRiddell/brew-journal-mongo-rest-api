@@ -68,8 +68,9 @@ router.put("/:bID", (req, res) => {
 //DELETE /brews/:bID
 // Delete a specific brew
 router.delete("/:bID", (req, res) => {
-    req.brew.remove((err) => {
+    req.brew.remove((err, result) => {
         if(err) return next(err);
+        res.json(result);
     });
 });
 

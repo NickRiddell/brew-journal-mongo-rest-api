@@ -117,5 +117,24 @@ describe('Brews', () => {
       });
 
   });
+
+   /*
+  * Test the /DELETE/:id route
+  */
+  describe('/DELETE/:id brew', () => {
+      it('it should DELETE a brew given the id', (done) => {
+        let brew = new Brew({title: "Beetroot Wine", ingredients: "Beetroot, water, sugar, yeast", specificGravityInitial: 1.261})
+        brew.save((err, brew) => {
+                chai.request(app)
+                .delete('/brews/' + brew.id)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('_id').eql(brew.id);
+                  done();
+                });
+          });
+      });
+  });
 });
 
