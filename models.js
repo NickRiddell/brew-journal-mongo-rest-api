@@ -18,6 +18,7 @@ NoteSchema.method("update", (updates, callback) => {
 const BrewSchema = new Schema({
     title: { type: String, required: true },
     ingredients: { type: String, required: true },
+    method: { type: String, required: true },
     specificGravityInitial: { type: Number, required: true },
     specificGravityFinal: {type: Number, default: 0},
     estimatedABV: {type: Number, default: 0},

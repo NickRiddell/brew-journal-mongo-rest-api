@@ -57,6 +57,7 @@ describe('Brews', () => {
 		        let brew = {
 		            title: "Coffee Wine",
 		            ingredients: "Ground coffee(170g), water, sugar(900g), yeast(5g), nutrient(3tsp)",
+                method: "ferment 1 week, rack, secondary ferment 1 month, rack, clear, bottle",
 		            specificGravityInitial: 1.098
 		        }
 		        chai.request(app)
@@ -67,6 +68,7 @@ describe('Brews', () => {
 		                res.body.should.be.a('object');
 		                res.body.should.have.property('title');
 		                res.body.should.have.property('ingredients');
+                    res.body.should.have.property('method');
 		                res.body.should.have.property('specificGravityInitial');
 		              done();
 		            });
@@ -78,7 +80,7 @@ describe('Brews', () => {
   */
   describe('/GET/:id brew', () => {
       it('it should GET a brew by the given id', (done) => {
-        let brew = new Brew({ title: "Beetroot Wine", ingredients: "Beetroot, water, sugar, yeast", specificGravityInitial: 1.261 });
+        let brew = new Brew({ title: "Beetroot Wine", ingredients: "Beetroot, water, sugar, yeast", method: "ferment 1 week, rack, secondary ferment 1 month, rack, clear, bottle", specificGravityInitial: 1.261 });
         brew.save((err, brew) => {
             chai.request(app)
             .get('/brews/' + brew.id)
@@ -102,7 +104,7 @@ describe('Brews', () => {
   */
   describe('/PUT/:id brew', () => {
       it('it should UPDATE a brew given the id', (done) => {
-        let brew = new Brew({title: "Beetroot Wine", ingredients: "Beetroot, water, sugar, yeast", specificGravityInitial: 1.261})
+        let brew = new Brew({title: "Beetroot Wine", ingredients: "Beetroot, water, sugar, yeast", method: "ferment 1 week, rack, secondary ferment 1 month, rack, clear, bottle", specificGravityInitial: 1.261})
         brew.save((err, brew) => {
                 chai.request(app)
                 .put('/brews/' + brew.id)
@@ -123,7 +125,7 @@ describe('Brews', () => {
   */
   describe('/DELETE/:id brew', () => {
       it('it should DELETE a brew given the id', (done) => {
-        let brew = new Brew({title: "Beetroot Wine", ingredients: "Beetroot, water, sugar, yeast", specificGravityInitial: 1.261})
+        let brew = new Brew({title: "Beetroot Wine", ingredients: "Beetroot, water, sugar, yeast", method: "ferment 1 week, rack, secondary ferment 1 month, rack, clear, bottle", specificGravityInitial: 1.261})
         brew.save((err, brew) => {
                 chai.request(app)
                 .delete('/brews/' + brew.id)

@@ -1,3 +1,3 @@
 {
-    "DBHost": "mongodb://localhost:27017/brewjournal"
+    "DBHost": "mongodb://Brewer1:Lotsobooze@ds149711.mlab.com:49711/brewjournal"
 }
